@@ -33,13 +33,18 @@ function operate(a, operator, b) {
 
 function displayNumber() {
     const number = Number(this.textContent);
-    if(expression['operand']) {
-        document.querySelector('.input-text').textContent = number;
+    if(expression['calculating']) {
+        document.querySelector('.input-text').textContent = "";
+        document.querySelector('.input-text').textContent += number;
+        endCalculation();
+        
     } else {
         document.querySelector('.input-text').textContent += number;
+        
     }
 
 }
+
 
 function allClear() {
     document.querySelector('.input-text').textContent = "";
@@ -54,6 +59,7 @@ function storeValue() {
     expression["operand"] = input;
     expression["operator"] = this.textContent;
     
+
     }
 
 
@@ -61,16 +67,16 @@ function compute() {
     const a = expression["result"]; 
     const b = expression["operand"];
     const operator = expression["operator"];
-
     expression["result"] = operate(a, operator, b);
-    console.log(expression["result"]);
+    startCalculation();
+    displayResult(expression["result"]);
     
 }
 
 function displayResult(result) {
-    
     document.querySelector('.input-text').textContent = result;
-   
+    
+    
 }
 
 function equal() {
@@ -79,11 +85,22 @@ function equal() {
 
 }
 
+function startCalculation() {
+    expression['calculating'] = true;
+}
+
+
+function endCalculation() {
+    expression['calculating'] = false;
+}
+
 
 let expression = {
     operand: 0,
     operator: '',
     result: 0,
+    calculating: false,
+    
 }
 
 
