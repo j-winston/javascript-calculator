@@ -15,14 +15,23 @@ Output >> 5
 
 
 ALGORITHM::
-
-INPUT int x 
-INPUT operator 
-INPUT int y
-OUTPUT result 
               
 
+
+Perform operation on a pair of numbers
+TODO--1. Compute addition pair
+                        
 
 
 // Nice to have features
 - Light up operation
+
+
+pressing a number the second time needs to result in a screen clear
+
+
+
+
+problem: Each time an operator is pressed, the value needs to be stored and cleared
+
+
