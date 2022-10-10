@@ -1,23 +1,26 @@
 
 
 function add(a, b) {
-    return Number(a + b);
+    return (a + b);
 }
 
 function subtract(a, b) {
-    return Number(a - b);
+    return (a - b);
 }
 
 function multiply(a, b) {
-    return Number(a * b);
+    return (a * b);
 }
 
 function divide(a, b) {
-    return Number(a / b);
+    return (a / b);
 }
 
 
 function operate(a, operator, b) {
+    a = Number(a);
+    b = Number(b);
+
     switch (operator) {
         case '+':
             return add(a, b);
@@ -31,84 +34,105 @@ function operate(a, operator, b) {
 
 }
 
-function displayNumber() {
-    const number = Number(this.textContent);
-    if(expression['calculating']) {
-        document.querySelector('.input-text').textContent = "";
-        document.querySelector('.input-text').textContent += number;
-        endCalculation();
-        
-    } else {
-        document.querySelector('.input-text').textContent += number;
-        
-    }
 
-}
 
 
 function allClear() {
     document.querySelector('.input-text').textContent = "";
-    expression["operand"] = 0;
-    expression["operator"] = '';
-    expression["result"] = 0;
+    expression.a = 0;
+    expression.b = 0;
+    expression.result = 0;
+    endExpression();
+   
 }
 
+function storeOperator(){
+    expression.operator = this.textContent;
+}
+
+function displayNumber() {
+    document.querySelector('.input-text').textContent += this.textContent;
+
+    
+}
 
 function storeValue() {
-    const input = Number(document.querySelector('.input-text').textContent);
-    expression["operand"] = input;
-    expression["operator"] = this.textContent;
-    
+    if(expression.nowCalculating){
+        expression.a = this.textContent;
+        expression.a = parseInt(expression.a);
+        console.log('expression a', expression.a);
 
+        document.querySelector('.input-text').textContent = "";
+        document.querySelector('.input-text').textContent = expression.a;
+    }else {
+        
+        expression.b = this.textContent; 
+        expression.b = parseInt(expression.b);
+        
+
+    
     }
 
-
-function compute() {
-    const a = expression["result"]; 
-    const b = expression["operand"];
-    const operator = expression["operator"];
-    expression["result"] = operate(a, operator, b);
-    startCalculation();
-    displayResult(expression["result"]);
+    console.log('expression.a', expression.a, 'expression.b', expression.b);
     
-}
 
-function displayResult(result) {
-    document.querySelector('.input-text').textContent = result;
     
     
 }
 
-function equal() {
-    const result = expression['result'];
-    displayResult(result);
+function compute() { 
+    startNewExpression();
+    
+    equals();
+    
 
 }
 
-function startCalculation() {
-    expression['calculating'] = true;
+function equals() {
+    expression.result = operate(expression.a, expression.operator, expression.b);
+    document.querySelector('.input-text').textContent = expression.result;
+    expression.a = expression.result
+    endExpression();
+
+    
 }
 
 
-function endCalculation() {
-    expression['calculating'] = false;
+
+
+
+function startNewExpression() {
+    expression.nowCalculating = true;
+}
+
+
+function endExpression() {
+    expression.nowCalculating = false;
 }
 
 
 let expression = {
-    operand: 0,
+    a:0,
+    b:0,
     operator: '',
     result: 0,
-    calculating: false,
+    runningTotal: 0,
+    nowCalculating: false,
     
 }
 
 
 // Keypad event listeners
 
+// document.querySelectorAll('.num-btn').forEach((btn) => btn.addEventListener('click', storeValue));
 document.querySelectorAll('.num-btn').forEach((btn) => btn.addEventListener('click', displayNumber));
+document.querySelectorAll('.num-btn').forEach((btn) => btn.addEventListener('click', storeValue));
 
-document.querySelector('.add-btn').addEventListener('click', storeValue);
+document.querySelector('.add-btn').addEventListener('click', storeOperator);
 document.querySelector('.add-btn').addEventListener('click', compute);
 
+
+document.querySelector('.equal-btn').addEventListener('click', equals);
 document.querySelector('.clear-btn').addEventListener('click', allClear);
+
+
