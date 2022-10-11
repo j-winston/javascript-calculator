@@ -41,11 +41,11 @@ body {
     display: flex;
     justify-content: flex-end;
     width: 75%;
-    height: 10%;
+    height: 10
     background-color: rgb(45,45,45);
 }
 
-.input-text {
+.screen-text {
     font-size: 140%;
     color: white;
 }
