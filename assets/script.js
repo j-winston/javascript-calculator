@@ -38,67 +38,56 @@ function operate(a, operator, b) {
 
 
 function allClear() {
-    document.querySelector('.input-text').textContent = "";
-    expression.a = 0;
-    expression.b = 0;
-    expression.result = 0;
-    endExpression();
+    expression.clear();
    
 }
+
 
 function storeOperator(){
     expression.operator = this.textContent;
 }
 
-function displayNumber() {
-    document.querySelector('.input-text').textContent += this.textContent;
 
-    
+function displayNumber(value) {
+    document.querySelector('.screen-text').textContent = "";
+    document.querySelector('.screen-text').textContent += value;
+
 }
+
+
+function printInput() {
+    document.querySelector('.screen-text').textContent += this.textContent;
+
+}
+
+
+function clearScreen(){
+    document.querySelector('.screen-text').textContent = "";
+
+}
+
 
 function storeValue() {
-    if(expression.nowCalculating){
-        expression.a = this.textContent;
-        expression.a = parseInt(expression.a);
-        console.log('expression a', expression.a);
-
-        document.querySelector('.input-text').textContent = "";
-        document.querySelector('.input-text').textContent = expression.a;
-    }else {
-        
-        expression.b = this.textContent; 
-        expression.b = parseInt(expression.b);
-        
-
-    
-    }
-
-    console.log('expression.a', expression.a, 'expression.b', expression.b);
-    
-
+    const userInput = this.textContent;
+    expression.store(userInput);
     
     
 }
 
-function compute() { 
-    startNewExpression();
+function setOperationMode() {
+    const mode = this.textContent;
+    expression.setMode(mode);
+    // remove console.log
     
-    equals();
     
-
 }
+
 
 function equals() {
-    expression.result = operate(expression.a, expression.operator, expression.b);
-    document.querySelector('.input-text').textContent = expression.result;
-    expression.a = expression.result
-    endExpression();
-
+    // remove console.log
+    console.log('Equals:',expression.getAnswer());
     
 }
-
-
-
 
 
 function startNewExpression() {
@@ -114,22 +103,63 @@ function endExpression() {
 let expression = {
     a:0,
     b:0,
-    operator: '',
+    operationMode: '',
     result: 0,
-    runningTotal: 0,
-    nowCalculating: false,
+    inMidCalculation: false,
+
+    store(userInput) {
+        if(expression.inMidCalculation){
+            expression.b += userInput
+            expression.b = parseInt(expression.b);
+
+
+            
+        }else{
+            expression.a += userInput;
+            expression.a = parseInt(expression.a);
+        }
+        
+    },
+
+    setMode(operator) {
+        // If mid-calculation, increment result each time user presses +,-,x,/''
+        if(expression.inMidCalculation){
+            const answer = expression.getAnswer();
+            expression.result = answer;
+            expression.a = expression.result;
+            expression.b = 0;
+        }
+        expression.inMidCalculation = true;
+        expression.operationMode = operator;
+
+
+    },
+
+    getAnswer() {
+        const answer = operate(expression.a, expression.operationMode, expression.b);
+        return answer;
+    },
+
+    clear() {
+        expression.a = 0;
+        expression.b = 0;
+        expression.operationMode = '',
+        expression.result = 0,
+        expression.inMidCalculation = false;
+    }
+   
     
 }
 
 
 // Keypad event listeners
-
-// document.querySelectorAll('.num-btn').forEach((btn) => btn.addEventListener('click', storeValue));
-document.querySelectorAll('.num-btn').forEach((btn) => btn.addEventListener('click', displayNumber));
+// Get User Input
 document.querySelectorAll('.num-btn').forEach((btn) => btn.addEventListener('click', storeValue));
 
-document.querySelector('.add-btn').addEventListener('click', storeOperator);
-document.querySelector('.add-btn').addEventListener('click', compute);
+document.querySelector('.add-btn').addEventListener('click', setOperationMode);
+document.querySelector('.multiply-btn').addEventListener('click', setOperationMode);
+document.querySelector('.subtract-btn').addEventListener('click', setOperationMode);
+document.querySelector('.divide-btn').addEventListener('click', setOperationMode);
 
 
 document.querySelector('.equal-btn').addEventListener('click', equals);
