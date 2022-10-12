@@ -117,7 +117,7 @@ let expression = {
         if(expression.inMidCalculation){
             expression.b += userInput
             expression.b = parseInt(expression.b);
-            expression.inMidCalculation = false;
+            
 
             // expression.temp = expression.a;
             // expression.a = "";
@@ -144,6 +144,7 @@ let expression = {
         } 
         expression.inMidCalculation = true;
         expression.operationMode = operator;
+        console.log(expression.result);
 
         
         
