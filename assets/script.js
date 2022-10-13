@@ -1,4 +1,5 @@
 
+
 function add(a, b) {
     return (a + b);
 }
@@ -109,7 +110,6 @@ function endExpression() {
 let expression = {
     a:0,
     b:0,
-    temp: 0,
     operationMode: '',
     result: 0,
     inMidCalculation: false,
@@ -162,11 +162,7 @@ let expression = {
     getAnswer() {
         const answer = operate(expression.a, expression.operationMode, expression.b);
         return answer;
-<<<<<<< HEAD
-        
-=======
         // TODO--Create a function that saves the last expression
->>>>>>> display
     },
 
     // TODO--Change name to clearMemory()
