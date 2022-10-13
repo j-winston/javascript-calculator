@@ -139,11 +139,14 @@ let expression = {
         // TODO--Decouple this create a function that checks if in middle of calculation
         if(expression.inMidCalculation){
             const answer = expression.getAnswer();
+            console.log('result:', answer);
             expression.result = answer;
             expression.a = expression.result;
             // TODO--This might adversely impact history of expressions and 
             // may not be necessary 
             expression.b = 0;
+            expression.clearDisplay();
+            expression.display(answer);
         } 
         expression.inMidCalculation = true;
         expression.operationMode = operator;
