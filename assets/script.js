@@ -100,34 +100,39 @@ let expression = {
     },
 
     setMode(operator) {
-        // If mid-calculation, increment result each time user presses +,-,x,/''
-        // TODO--Decouple this create a function that checks if in middle of calculation
+        // If user pressed operator key after inputting second operand,
+        // update the total and display 
         if(expression.inMidCalculation){
-            const answer = expression.getAnswer();
-            console.log('result:', answer);
-            expression.result = answer;
-            expression.a = expression.result;
-            // TODO--This might adversely impact history of expressions and 
-            // may not be necessary 
-            expression.b = 0;
+            const currentTotal = expression.getAnswer();
+            expression.updateRunningTotal(currentTotal);
             expression.clearDisplay();
-            expression.display(answer);
-        } 
-        expression.inMidCalculation = true;
+            expression.display(expression.result);
+        }else {
+            expression.inMidCalculation = true;
+        }
+
         expression.operationMode = operator;
-        console.log(expression.result);
-
-        // To clear screen for next entry
-        // Change to startNewEntry()
-        expression.newEntry = true;
-
-
+        // Clear input screen for second operand
+        expression.startNewEntry();
     },
+
+
+    updateRunningTotal(previousTotal) {
+        // Allows calc to display new running total after pressing +, -, *, /
+        expression.result = previousTotal;
+        expression.a = expression.result;
+        expression.b = 0;
+    },
+
+    startNewEntry() {
+        expression.newEntry = true;
+    },
+
 
     getAnswer() {
         const answer = operate(expression.a, expression.operationMode, expression.b);
         return answer;
-        // TODO--Create a function that saves the last expression
+        
     },
 
 
@@ -158,7 +163,7 @@ let expression = {
     clearDisplay(){
         document.querySelector('.screen-text').textContent = "";
 
-    }
+    },
     
 } // End object 
 
