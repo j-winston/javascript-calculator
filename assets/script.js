@@ -37,8 +37,7 @@ function operate(a, operator, b) {
 
 
 
-function allClear() {
-    // TODO--Change to expression.clearMemory()
+function clearMemory() {
     expression.clear();
    
 }
@@ -48,24 +47,6 @@ function storeOperator(){
     expression.operator = this.textContent;
 }
 
- // TODO--Remove this, see line 76
-function displayNumber(value) {
-    document.querySelector('.screen-text').textContent = "";
-    document.querySelector('.screen-text').textContent += value;
-
-}
-
-// TODO-- Delete this 
-function printInput() {
-    document.querySelector('.screen-text').textContent += this.textContent;
-
-}
-
-// TODO-- Delete this
-function clearScreen(){
-    document.querySelector('.screen-text').textContent = "";
-
-}
 
 
 function storeValue() {
@@ -90,23 +71,12 @@ function setOperationMode() {
 function equals() {
     expression.clearDisplay();
     expression.display(expression.getAnswer());
-    // TODO--output to screen here
     
 }
 
 
-// TODO--Remove both of these, not used anywhere
-function startNewExpression() {
-    expression.nowCalculating = true;
-}
 
-
-function endExpression() {
-    expression.nowCalculating = false;
-}
-
-// Expression's functions
-
+// Object used to hold all calculations
 let expression = {
     a:0,
     b:0,
@@ -126,7 +96,6 @@ let expression = {
             expression.a += userInput;
             expression.a = parseInt(expression.a);
         }
-        
         
     },
 
@@ -161,7 +130,7 @@ let expression = {
         // TODO--Create a function that saves the last expression
     },
 
-    // TODO--Change name to clearMemory()
+
     clear() {
         expression.a = 0;
         expression.b = 0;
@@ -191,11 +160,10 @@ let expression = {
 
     }
     
-} // End main object
+} // End object 
 
 
 // Keypad event listeners
-// Get User Input
 document.querySelectorAll('.num-btn').forEach((btn) => btn.addEventListener('click', storeValue));
 document.querySelectorAll('.num-btn').forEach((btn) => btn.addEventListener('click', displayNumber));
 
@@ -206,6 +174,6 @@ document.querySelector('.divide-btn').addEventListener('click', setOperationMode
 
 
 document.querySelector('.equal-btn').addEventListener('click', equals);
-document.querySelector('.clear-btn').addEventListener('click', allClear);
+document.querySelector('.clear-btn').addEventListener('click', clearMemory);
 
 
