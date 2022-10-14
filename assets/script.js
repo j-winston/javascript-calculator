@@ -151,13 +151,10 @@ let expression = {
         expression.inMidCalculation = true;
         expression.operationMode = operator;
         console.log(expression.result);
-<<<<<<< HEAD
-=======
 
         // To clear screen for next entry
         // Change to startNewEntry()
         expression.newEntry = true;
->>>>>>> display
 
 
     },
