@@ -86,7 +86,7 @@ let expression = {
     newEntry: true,
 
     store(userInput) {
-        // TODO--Change to function call inMidCalculation()
+        // Give each of the two operands their own variable
         if(expression.inMidCalculation){
             expression.b += userInput
             expression.b = parseInt(expression.b);
