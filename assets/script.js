@@ -112,7 +112,7 @@ let expression = {
         }
 
         expression.operationMode = operator;
-        // Clear input screen for second operand
+        // Let the program know a new operand is coming up
         expression.startNewEntry();
     },
 
@@ -147,11 +147,10 @@ let expression = {
 
 
     display(inputValue) {
-         // TODO--Create a function isNewEntry() that checks if it should clear display
+         // Clear display once for each new operand 
         if(expression.newEntry){
             expression.clearDisplay();
             expression.newEntry = false;
-            
         }
         
         document.querySelector('.screen-text').textContent += inputValue; 
