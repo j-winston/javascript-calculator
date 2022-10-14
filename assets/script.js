@@ -120,12 +120,8 @@ let expression = {
         if(expression.inMidCalculation){
             expression.b += userInput
             expression.b = parseInt(expression.b);
-<<<<<<< HEAD
-
-=======
             
        
->>>>>>> display
         }else{
             expression.a += userInput;
             expression.a = parseInt(expression.a);
