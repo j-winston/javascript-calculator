@@ -13,8 +13,15 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-    return (a / b);
-}
+    if(b===0){
+        return "That's naughty.";
+    }else if(a < b ){
+        return (a/b).toPrecision(8);
+    }else {
+        return (a/b);
+    }
+    }
+    
 
 
 function operate(a, operator, b) {
@@ -29,14 +36,12 @@ function operate(a, operator, b) {
         case '*':
             return multiply(a, b);
         case '/':
-            return divide(a, b)
-    }
+            return divide(a, b);
+    } 
 
 }
 
-
-
-
+3
 function clearMemory() {
     expression.clear();
    
@@ -80,10 +85,11 @@ function equals() {
 let expression = {
     a:0,
     b:0,
-    operationMode: '',
+    operationMode: '+',
     result: 0,
     inMidCalculation: false,
     newEntry: true,
+    
 
     store(userInput) {
         // Give each of the two operands their own variable
@@ -139,7 +145,7 @@ let expression = {
     clear() {
         expression.a = 0;
         expression.b = 0;
-        expression.operationMode = '',
+        expression.operationMode = '+',
         expression.result = 0,
         expression.inMidCalculation = false;
         expression.clearDisplay();
