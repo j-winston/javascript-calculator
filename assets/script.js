@@ -15,12 +15,20 @@ function multiply(a, b) {
 function divide(a, b) {
     if(b===0){
         return "That's naughty.";
-    }else if(a < b ){
+    }
+    if(a < b ){
+        const ans = (a/b);
+        if (((Math.sqrt(ans)) ** 2) === ans) {
+            return (a/b).toFixed(6);
+        }
+        else {
+            return(a/b).toFixed(2);
+        }
+    } else if ( a > b){
         return (a/b).toPrecision(8);
-    }else {
-        return (a/b);
-    }
-    }
+    } 
+
+}
     
 
 
