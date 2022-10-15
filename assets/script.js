@@ -33,9 +33,16 @@ function divide(a, b) {
 
 
 function operate(a, operator, b) {
-    a = Number(a);
-    b = Number(b);
-
+    if(a % Math.floor(a) != 0 || b % Math.floor(b) != 0) {
+        // If it's a float, parse it accordingly
+        a = parseFloat(a);
+        b = parseFloat(b);
+    }else {
+        a = parseInt(a);
+        b = parseInt(b);
+    }
+    
+   
     switch (operator) {
         case '+':
             return add(a, b);
@@ -103,12 +110,13 @@ let expression = {
         // Give each of the two operands their own variable
         if(expression.inMidCalculation){
             expression.b += userInput
-            expression.b = parseInt(expression.b);
+            console.log('in store b', expression.b)
+    
             
        
         }else{
             expression.a += userInput;
-            expression.a = parseInt(expression.a);
+            console.log('in store a', expression.a)
         }
         
     },
