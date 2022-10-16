@@ -88,7 +88,10 @@ function displayNumber() {
 
 function setOperationMode() {
     const mode = this.textContent;
-    expression.setMode(mode);
+    const opObject = this;
+    expression.opButtonInstance = this;
+    expression.setMode(mode, opObject);
+    
   
 }
 
@@ -109,12 +112,16 @@ let expression = {
     result: 0,
     inMidCalculation: false,
     newEntry: true,
+    opButtonInstance: "", // Keep track of current activated button
     
 
     store(userInput) {
-        // Give each of the two operands their own variable
+        // expression.a and .b are the two operands
         if(expression.inMidCalculation){
             expression.b += userInput
+	     // Remove highlight after user types second number
+	    expression.opButtonInstance.style.backgroundColor = "rgb(255, 190, 60)";
+	    expression.opButtonInstance.style.color = "white";
     
             
        
@@ -124,14 +131,22 @@ let expression = {
         
     },
 
-    setMode(operator) {
+    setMode(operator, operatorButton) {
+
+	 
+	// Highlight active button when user clicks operation key
+	operatorButton.style.backgroundColor = "white";
+	operatorButton.style.color = "orange";
+	  
+
         // If user pressed operator key after inputting second operand,
         // update the total and display 
         if(expression.inMidCalculation){
             const currentTotal = expression.getAnswer();
             expression.updateRunningTotal(currentTotal);
             expression.clearDisplay();
-            expression.display(expression.result);
+            expression.display(expression.result); 
+
         }else {
             expression.inMidCalculation = true;
         }
@@ -183,6 +198,9 @@ let expression = {
         expression.result = 0,
         expression.inMidCalculation = false;
         expression.clearDisplay();
+	// Clear highlighted mode
+        expression.opButtonInstance.style.backgroundColor = "rgb(255, 190, 60)";
+	expression.opButtonInstance.style.color = "white";
     },
 
 
