@@ -142,12 +142,12 @@ let expression = {
     },
 	
     makeItPercent() {
- 	    // Clear whole number value from memory
+ 	    // Clear any previously entered data
 	    document.querySelector('.screen-text').textContent = "";
 
 	    if(expression.inMidCalculation) {
 		    expression.b = ((expression.b) / 100).toFixed(2);
-		    expression.display((expression.a));
+		    expression.display(expression.b);
 		   
 	    }else {
 		    expression.a = ((expression.a) / 100).toFixed(2);
