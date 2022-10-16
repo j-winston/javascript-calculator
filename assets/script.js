@@ -115,13 +115,11 @@ let expression = {
         // Give each of the two operands their own variable
         if(expression.inMidCalculation){
             expression.b += userInput
-            console.log('in store b', expression.b)
     
             
        
         }else{
             expression.a += userInput;
-            console.log('in store a', expression.a)
         }
         
     },
@@ -157,7 +155,6 @@ let expression = {
 		   	
 	    }
 	   
-	    	    console.log('In makeItPercent()', expression.a, expression.b);
     },
 
     updateRunningTotal(previousTotal) {
