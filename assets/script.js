@@ -56,7 +56,12 @@ function operate(a, operator, b) {
 
 }
 
-3
+
+function changeToPercent() {
+	expression.makeItPercent();
+}
+
+
 function clearMemory() {
     expression.clear();
    
@@ -137,7 +142,23 @@ let expression = {
         // Let the program know a new operand is coming up
         expression.startNewEntry();
     },
+	
+    makeItPercent() {
+ 	    // Clear whole number value from memory
+	    document.querySelector('.screen-text').textContent = "";
 
+	    if(expression.inMidCalculation) {
+		    expression.b = ((expression.b) / 100).toFixed(2);
+		    expression.display((expression.a));
+		   
+	    }else {
+		    expression.a = ((expression.a) / 100).toFixed(2);
+		    expression.display(expression.a);
+		   	
+	    }
+	   
+	    	    console.log('In makeItPercent()', expression.a, expression.b);
+    },
 
     updateRunningTotal(previousTotal) {
         // Allows calc to display new running total after pressing +, -, *, /
@@ -198,8 +219,8 @@ document.querySelector('.multiply-btn').addEventListener('click', setOperationMo
 document.querySelector('.subtract-btn').addEventListener('click', setOperationMode);
 document.querySelector('.divide-btn').addEventListener('click', setOperationMode);
 
-
 document.querySelector('.equal-btn').addEventListener('click', equals);
 document.querySelector('.clear-btn').addEventListener('click', clearMemory);
+document.querySelector('.percent-btn').addEventListener('click', changeToPercent);
 
 
