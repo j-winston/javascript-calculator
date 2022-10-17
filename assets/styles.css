@@ -22,19 +22,6 @@ body {
    
 }
 
-.last-calc-container {
-    display: flex;
-    align-self: flex-end;
-    margin-right: 20px;
-    height: 10%;
-    
-}
-
-.last-calc-text {
-    color:white;
-    font-size: 80%;
-    opacity: 50%;
-}
 
 
 .screen {
@@ -130,3 +117,11 @@ button  {
 .equal-btn {
     background-color: green;
 }
+
+.logo {
+	height: 40px;
+	width: auto;
+	padding-top:20px;
+}
+
+
