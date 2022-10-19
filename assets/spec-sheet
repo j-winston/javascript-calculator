@@ -34,4 +34,10 @@ pressing a number the second time needs to result in a screen clear
 
 problem: Each time an operator is pressed, the value needs to be stored and cleared
 
+TODO--1. Decimal should be deactivated after being pressed
+Expression.a and Expression.b should only have at most 1 decimal point. 
+For each expresion, deactivate decimal point after each entry. 
+Reset decimal point on clear.
+
+TODO--2. Change vim for default onedark and also to display current git state 
 

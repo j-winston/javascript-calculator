@@ -26,7 +26,11 @@ function divide(a, b) {
         }
     } else if ( a > b){
         return (a/b).toPrecision(8);
-    } 
+
+    } else {
+	    return (a/b);
+    }
+
 
 }
     
@@ -72,6 +76,10 @@ function storeOperator(){
     expression.operator = this.textContent;
 }
 
+function parseInput() {
+	const input = this.textContent;
+	expression.parse(input);
+}
 
 
 function storeValue() {
@@ -112,11 +120,28 @@ let expression = {
     result: 0,
     inMidCalculation: false,
     newEntry: true,
-    opButtonInstance: "", // Keep track of current activated button
-    
+    opButtonInstance: "", // Keeps track which +,-,*,/ button is activated
+    decimalPointOn: false, // Becomes true when user types in a decimal point
+   
+	parse(userInput) {
+		// Ensure decimal is only entered once
+		if((userInput === '.') && (expression.decimalPointOn == true)) {
+		 	userInput = '';
+		} else if(userInput === '.') {
+			expression.decimalPointOn = true;
+		} else {
+			expression.decimalPointOn = false;
+		}
+
+		expression.store(userInput);
+		expression.display(userInput);
+	},
+
+
 
     store(userInput) {
-        // expression.a and .b are the two operands
+	    	
+        // The first operand of the expression
         if(expression.inMidCalculation){
             expression.b += userInput
 	     // Remove highlight after user types second number
@@ -124,7 +149,7 @@ let expression = {
 	    expression.opButtonInstance.style.color = "white";
     
             
-       
+       // The second half of the expression
         }else{
             expression.a += userInput;
         }
@@ -133,7 +158,10 @@ let expression = {
 
     setMode(operator, operatorButton) {
 
-	 
+
+	 // Reset any decimal points that were entered
+	    //expression.decimalPointOn = false;
+
 	// Highlight active button when user clicks operation key
 	operatorButton.style.backgroundColor = "white";
 	operatorButton.style.color = "orange";
@@ -226,8 +254,8 @@ let expression = {
 
 
 // Keypad event listeners
-document.querySelectorAll('.num-btn').forEach((btn) => btn.addEventListener('click', storeValue));
-document.querySelectorAll('.num-btn').forEach((btn) => btn.addEventListener('click', displayNumber));
+document.querySelectorAll('.num-btn').forEach((btn) => btn.addEventListener('click', parseInput));
+// document.querySelectorAll('.num-btn').forEach((btn) => btn.addEventListener('click', displayNumber));
 
 document.querySelector('.add-btn').addEventListener('click', setOperationMode);
 document.querySelector('.multiply-btn').addEventListener('click', setOperationMode);
