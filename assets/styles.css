@@ -1,3 +1,7 @@
+@font-face {
+	font-family:"Bitwise";
+	src: url('../assets/font/bitwise/Bitwise.ttf') format('truetype');
+}
 
 body {
     display: flex;
@@ -16,7 +20,7 @@ body {
     align-items: center;
     height: 50%;
 
-    background-color: rgb(45, 45, 45);
+    background-color: rgb(40,40,40);
     border-radius: 15px;
     border: 1px solid black;
    
@@ -26,18 +30,16 @@ body {
 
 .screen {
     display: flex;
-    justify-content: flex-end;
-    width: 75%;
+    justify-content: flex-end; width: 75%;
     height: 10%;
-    background-color: rgb(45,45,45);
-}
+    background-color: rgb(40,40,40);
+ }
 
 .screen-text {
-    font-size: 140%;
+    font-size:160%; 
     color: white;
+    font-family: "Bitwise";
 }
-
-
 
 .keypad-container {
     display: flex;
