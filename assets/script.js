@@ -20,14 +20,11 @@ function divide(a, b) {
 		return "That's naughty.";
 	}
 	// Handle fractions gracefully
-	if(a < b ){
-		return (a/b).toFixed(8);
-	}else if( a > b) {
-		if( a % b) {
-			return ( a/b ).toFixed(8);
-		}else return ( a/b); 
-	}
+	return parseFloat(ans.toFixed(6));
 }
+
+
+
 
     
 
