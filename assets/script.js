@@ -114,6 +114,7 @@ let expression = {
     newEntry: true,
     opButtonInstance: "", // Keeps track which +,-,*,/ button is activated
     decimalPointOn: false, // Becomes true when user types in a decimal point
+	textBox: "",
    
 	parse(userInput) {
 		// Ensure decimal is only entered once
@@ -127,7 +128,16 @@ let expression = {
 
 		expression.store(userInput);
 		expression.display(userInput);
+		expression.displayHistory(userInput);
 	},
+
+	displayHistory(userInput) {
+		expression.textBox = document.querySelector('.history-text'); 
+
+		expression.textBox.textContent += userInput;
+	},
+
+
 
 
 
@@ -150,6 +160,8 @@ let expression = {
 
     setMode(operator, operatorButton) {
 
+	    // add to history display
+
 
 	 // Reset any decimal points that were entered
 	    //expression.decimalPointOn = false;
@@ -165,7 +177,10 @@ let expression = {
             const currentTotal = expression.getAnswer();
             expression.updateRunningTotal(currentTotal);
             expression.clearDisplay();
-            expression.display(expression.result); 
+            expression.display(expression.result);
+		document.querySelector(".history-text").textContent = '';
+		expression.displayHistory(expression.result);
+
 
         }else {
             expression.inMidCalculation = true;
@@ -173,7 +188,10 @@ let expression = {
 
         expression.operationMode = operator;
         // Let the program know a new operand is coming up
+	    	// update history screen with new operator 
+
         expression.startNewEntry();
+		expression.displayHistory(expression.operationMode);
     },
 	
     makeItPercent() {
@@ -206,7 +224,10 @@ let expression = {
 
     getAnswer() {
         const answer = operate(expression.a, expression.operationMode, expression.b);
+	    // display answer in history
+	    expression.displayHistory('='+answer);
         return answer;
+
         
     },
 
@@ -221,6 +242,8 @@ let expression = {
 	// Clear highlighted mode
         expression.opButtonInstance.style.backgroundColor = "rgb(255, 190, 60)";
 	expression.opButtonInstance.style.color = "white";
+	    // remove history
+	    document.querySelector('.history-text').textContent = '';
     },
 
 
@@ -247,7 +270,6 @@ let expression = {
 
 // Keypad event listeners
 document.querySelectorAll('.num-btn').forEach((btn) => btn.addEventListener('click', parseInput));
-// document.querySelectorAll('.num-btn').forEach((btn) => btn.addEventListener('click', displayNumber));
 
 document.querySelector('.add-btn').addEventListener('click', setOperationMode);
 document.querySelector('.multiply-btn').addEventListener('click', setOperationMode);
