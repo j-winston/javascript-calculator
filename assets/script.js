@@ -97,25 +97,43 @@ function setOperationMode() {
 
 
 function equals() {
-    expression.clearDisplay();
-    expression.display(expression.getAnswer());
-    
+	if(expression.equalPressed){
+		expression.clearDisplay();
+		expression.display(expression.repeatCalculation());
+	}
+
+	else {
+		expression.clearDisplay();
+		expression.display(expression.getAnswer());
+		expression.equalPressed = true;
+	}
 }
-
-
 
 // Object used to hold all calculations
 let expression = {
     a:0,
     b:0,
     operationMode: '+',
+	runningTotal: 0,
     result: 0,
     inMidCalculation: false,
     newEntry: true,
     opButtonInstance: "", // Keeps track which +,-,*,/ button is activated
     decimalPointOn: false, // Becomes true when user types in a decimal point
 	textBox: "",
-   
+	equalPressed: false, // Keeps track of equal button presses 
+
+	repeatCalculation(){
+		const answer = operate(expression.runningTotal, expression.operationMode, expression.b);
+		expression.runningTotal = answer;
+
+	    expression.displayHistory('='+answer); 
+
+	    return answer;
+	},
+
+ 
+
 	parse(userInput) {
 		// Ensure decimal is only entered once
 		if((userInput === '.') && (expression.decimalPointOn == true)) {
@@ -143,7 +161,7 @@ let expression = {
 
     store(userInput) {
 	    	
-        // The first operand of the expression
+        // Build the second half of the expression from user input
         if(expression.inMidCalculation){
             expression.b += userInput
 	     // Remove highlight after user types second number
@@ -151,7 +169,7 @@ let expression = {
 	    expression.opButtonInstance.style.color = "white";
     
             
-       // The second half of the expression
+       // Build the first half of the expression from user input 
         }else{
             expression.a += userInput;
         }
@@ -159,12 +177,6 @@ let expression = {
     },
 
     setMode(operator, operatorButton) {
-
-	    // add to history display
-
-
-	 // Reset any decimal points that were entered
-	    //expression.decimalPointOn = false;
 
 	// Highlight active button when user clicks operation key
 	operatorButton.style.backgroundColor = "white";
@@ -178,6 +190,7 @@ let expression = {
             expression.updateRunningTotal(currentTotal);
             expression.clearDisplay();
             expression.display(expression.result);
+		// Update the history display
 		document.querySelector(".history-text").textContent = '';
 		expression.displayHistory(expression.result);
 
@@ -200,7 +213,7 @@ let expression = {
 
 	    if(expression.inMidCalculation) {
 		    expression.b = ((expression.b) / 100).toFixed(2);
-		    expression.display(expression.b);
+		    expression.displayi(expression.b);
 		   
 	    }else {
 		    expression.a = ((expression.a) / 100).toFixed(2);
@@ -223,25 +236,29 @@ let expression = {
 
 
     getAnswer() {
-        const answer = operate(expression.a, expression.operationMode, expression.b);
-	    // display answer in history
-	    expression.displayHistory('='+answer);
-        return answer;
 
+	    const answer = operate(expression.a, expression.operationMode, expression.b);
+	    expression.runningTotal=answer;
+	    expression.displayHistory('='+answer); 
+
+	    return answer;
         
     },
 
 
     clear() {
-        expression.a = 0;
-        expression.b = 0;
-        expression.operationMode = '+',
-        expression.result = 0,
-        expression.inMidCalculation = false;
-        expression.clearDisplay();
-	// Clear highlighted mode
-        expression.opButtonInstance.style.backgroundColor = "rgb(255, 190, 60)";
-	expression.opButtonInstance.style.color = "white";
+	    expression.a = 0;
+	    expression.b = 0;
+	    expression.operationMode = '+';
+	    expression.result = 0;
+	    expression.runningTotal=0;
+	    expression.inMidCalculation = false;
+	    expression.clearDisplay();
+
+	    // Clear highlighted mode
+	    expression.opButtonInstance.style.backgroundColor = "rgb(255, 190, 60)";
+	    expression.opButtonInstance.style.color = "white";
+	    
 	    // remove history
 	    document.querySelector('.history-text').textContent = '';
     },
