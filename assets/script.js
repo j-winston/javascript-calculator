@@ -74,12 +74,12 @@ function parseInput() {
 }
 
 
-function storeValue() {
-    const userInput = this.textContent;
-    expression.store(userInput);
-
-}
-
+// function storeValue() {
+//     const userInput = this.textContent;
+//     expression.store(userInput);
+// 
+// }
+// 
 function displayNumber() {
     const userInput = this.textContent;
     expression.display(userInput);
@@ -97,9 +97,12 @@ function setOperationMode() {
 
 
 function equals() {
+	// If equal button is repeatidly pressed, repeat the last calculation recursively
 	if(expression.equalPressed){
 		expression.clearDisplay();
-		expression.display(expression.repeatCalculation());
+		expression.display(expression.repeatCalculation())
+		expression.inMidCalculation = false;
+
 	}
 
 	else {
@@ -123,11 +126,12 @@ let expression = {
 	textBox: "",
 	equalPressed: false, // Keeps track of equal button presses 
 
-	repeatCalculation(){
+	repeatCalculation() {
 		const answer = operate(expression.runningTotal, expression.operationMode, expression.b);
 		expression.runningTotal = answer;
 
-	    expression.displayHistory('='+answer); 
+	    expression.displayHistory('=' + answer); 
+		expression.result = answer;
 
 	    return answer;
 	},
@@ -160,23 +164,38 @@ let expression = {
 
 
     store(userInput) {
-	    	
-        // Build the second half of the expression from user input
-        if(expression.inMidCalculation){
-            expression.b += userInput
+
+
+
+	// Build the second half of the expression from user input
+	if(expression.inMidCalculation){
+	    expression.b += userInput
+		console.log("expression.b:", expression.b);
 	     // Remove highlight after user types second number
 	    expression.opButtonInstance.style.backgroundColor = "rgb(255, 190, 60)";
 	    expression.opButtonInstance.style.color = "white";
     
-            
+	    
        // Build the first half of the expression from user input 
-        }else{
-            expression.a += userInput;
-        }
-        
+	}else{
+	    expression.a += userInput;
+	}
     },
 
+
     setMode(operator, operatorButton) {
+	    // If equal has been pressed multiple times 
+	    if( expression.equalPressed ) { 
+		    // Clear out the old expression
+		    expression.b = '';
+		    //expression.b = expression.result;
+	    }
+
+
+
+
+
+
 
 	// Highlight active button when user clicks operation key
 	operatorButton.style.backgroundColor = "white";
@@ -238,8 +257,8 @@ let expression = {
     getAnswer() {
 
 	    const answer = operate(expression.a, expression.operationMode, expression.b);
-	    expression.runningTotal=answer;
-	    expression.displayHistory('='+answer); 
+	    expression.runningTotal = answer;
+	    expression.displayHistory('=' + answer); 
 
 	    return answer;
         
@@ -252,6 +271,7 @@ let expression = {
 	    expression.operationMode = '+';
 	    expression.result = 0;
 	    expression.runningTotal=0;
+	    expression.equalPressed = false;
 	    expression.inMidCalculation = false;
 	    expression.clearDisplay();
 
