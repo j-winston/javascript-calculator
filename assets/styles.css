@@ -26,6 +26,12 @@ body {
    
 }
 
+.last-calc-container {
+	height: 50%;
+	align-self: flex-end;
+	padding-right: 30px;
+}
+
 
 
 .screen {
