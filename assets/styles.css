@@ -18,7 +18,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 50%;
+    height: 525px;
 
     background-color: rgb(40,40,40);
     border-radius: 15px;
@@ -27,7 +27,7 @@ body {
 }
 
 .last-calc-container {
-	height: 50%;
+	height: 100%;
 	align-self: flex-end;
 	padding-right: 30px;
 }
@@ -36,22 +36,25 @@ body {
 
 .screen {
     display: flex;
-    justify-content: flex-end; width: 75%;
+    justify-content: flex-end; 
+    width: 75%;
     height: 10%;
     background-color: rgb(40,40,40);
  }
 
 .screen-text {
-    font-size:160%; 
+    font-size:30px; 
     color: white;
-    font-family: "Bitwise";
+    font-family: "Open sans";
 }
 
 .history-text {
-	font-size: 90%;
+	font-size: 20px;
 	color: white;
-	font-family: "Bitwise";
-	height: 30%;
+	font-family: "Open sans";
+	margin: 0px;
+	padding-top:10px;
+	/*height: 30%;*/
 }
 
 .keypad-container {
