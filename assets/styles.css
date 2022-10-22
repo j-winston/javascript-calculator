@@ -144,4 +144,8 @@ button  {
 	
 }
 
+.name-tag-container {
+	align-self: flex-end;
+}
+
 
