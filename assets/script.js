@@ -100,8 +100,16 @@ function equals() {
 	// If equal button is repeatidly pressed, repeat the last calculation recursively
 	if(expression.equalPressed){
 		expression.clearDisplay();
-		expression.display(expression.repeatCalculation())
+
+		const result = expression.repeatCalculation();
+		expression.display(result);
 		expression.inMidCalculation = false;
+
+		// update history screen
+
+		expression.textBox = document.querySelector('.history-text'); 
+		expression.textBox.textContent = "";
+		expression.displayHistory(result);
 
 	}
 
