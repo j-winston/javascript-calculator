@@ -7,10 +7,11 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction:column;
     width: 100vw;
-    height: 100vh;
+    height: 96vh;
     background-color: rgb(59, 59, 59);
-    
+    margin-top: 100px;
 }
 
 .main-container {
@@ -144,8 +145,18 @@ button  {
 	
 }
 
-.name-tag-container {
-	align-self: flex-end;
+.footer {
+	display:flex;
+	flex-direction:column;
+	padding-top: 150px;
+	color:white;
+	font-size: 20px;
+
+
+	
 }
+
+
+
 
 
