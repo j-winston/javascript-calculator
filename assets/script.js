@@ -97,7 +97,11 @@ function setOperationMode() {
 
 
 function equals() {
-	// If equal button is repeatidly pressed, repeat the last calculation recursively
+	// If equal button is repeatedly pressed, repeat the last calculation recursively
+
+	    // Clear highlighted mode
+	    expression.opButtonInstance.style.backgroundColor = "rgb(255, 190, 60)";
+	    expression.opButtonInstance.style.color = "white";
 	if(expression.equalPressed){
 		expression.clearDisplay();
 
@@ -195,14 +199,8 @@ let expression = {
 	    // If equal has been pressed multiple times 
 	    if( expression.equalPressed ) { 
 		    // Clear out the old expression
-		    expression.b = '';
-		    //expression.b = expression.result;
+		    //expression.b = '';
 	    }
-
-
-
-
-
 
 
 	// Highlight active button when user clicks operation key
